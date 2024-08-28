@@ -1,0 +1,27 @@
+{
+    "compilerOptions": {
+      /* Basic Options */
+    //   "paths": {
+    //     "@/*": ["./src/*"],
+    //   },
+      "target": "ES6",                          // Set the JavaScript language version for emitted JavaScript and include compatible library declarations.
+      "module": "ESNext",                       // Specify the module code generation.
+      "lib": ["DOM", "ESNext"],                 // Specify library files to be included in the compilation.
+      "allowJs": true,                          // Allow JavaScript files to be compiled.
+      "checkJs": false,                         // Report errors in .js files.
+      "jsx": "react",                           // Specify JSX code generation (react/react-native/preserve).
+      "declaration": true,                      // Generate .d.ts files from TypeScript and JavaScript files.
+      "sourceMap": true,                        // Generates corresponding .map file.
+      "outDir": "./dist",                       // Redirect output structure to the directory.
+      "rootDir": "./src",                       // Specify the root directory of input files.
+      "removeComments": true,                   // Do not emit comments to output.
+      "noEmit": false,                          // Do not emit outputs.
+      "esModuleInterop": true,                  // Enables emit interoperability between CommonJS and ES Modules.
+      "forceConsistentCasingInFileNames": true, // Disallow inconsistently-cased references to the same file.
+      "strict": true,                           // Enable all strict type-checking options.
+      "skipLibCheck": true                      // Skip type checking of declaration files.
+    },
+    "include": ["src"],                        // Include source files in the compilation.
+    "exclude": ["node_modules", "**/*.spec.ts"] // Exclude files from the compilation.
+  }
+  
