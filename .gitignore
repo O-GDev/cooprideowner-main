@@ -22,3 +22,19 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+<<<<<<< HEAD
+=======
+
+
+
+
+../coopride_driver
+../coopride_user
+
+
+*/coopride_driver
+*/coopride_user
+
+coopride_user
+coopride_driver
+>>>>>>> 578780e (re-initiation)

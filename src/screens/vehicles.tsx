@@ -1,93 +1,123 @@
 import { Icon } from "@iconify-icon/react/dist/iconify.js";
 import { VehicleDetails } from "../components/vehicleDetails";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Sidebar from "../components/sidebar";
 import { useQuery } from "../../node_modules/@tanstack/react-query/build/legacy/useQuery";
-import { getVehicles } from "../api/main.api";
-import { VehicleType } from "../types/api/mainApi.type";
+import { addVehicle, getVehicles, uploadMedia } from "../api/main.api";
+import { AddVehiclePayloadType, VehicleType } from "../types/api/mainApi.type";
 import React from "react";
+import { useMutation } from "../../node_modules/@tanstack/react-query/build/legacy/useMutation";
+import { useAppState } from "../context/AppContext";
 
 const Vehicles = () => {
+  const { user } = useAppState();
   const { data: vehicles } = useQuery<{}, {}, VehicleType[]>({
     queryFn: getVehicles,
   });
 
-  // vehicles.map((item: VehicleType) => {console.log(item.name)})
+  const vehicleFilesUrl: { [key: string]: string } = {
+    interior: "",
+    exterior: "",
+    plateNumber: "",
+    regDoc: "",
+  };
 
-  // console.log(vehicles)
+  const [vehicleFiles, setVehicleFiles] = useState<{ [key: string]: any }>({
+    interior: {
+      file: {},
+      attemptedUpload: false,
+      error: "",
+    },
+    exterior: {
+      file: {},
+      attemptedUpload: false,
+      error: "",
+    },
+    plateNumber: {
+      file: {},
+      attemptedUpload: false,
+      error: "",
+    },
+    regDoc: {
+      file: {},
+      attemptedUpload: false,
+      error: "",
+    },
+  });
 
-  const [data, setData] = useState([
-    {
-      name: "Porsche 911 Carrera Targa - 1975",
-      status: "active",
-      license: "APP 858 FT",
-      earning: "93.20",
-      driversName: "Allan Smith",
-      verifystatus: "Verified",
-      totalDeliveries: "124",
-      cash: "450",
-      card: "450",
-      bonus: "450",
-      campaign: "450",
-      doclicense: "approved",
-      vehiclereg: "Not Approved",
-      vindoc: "approved",
-      year: "2006",
-      color: "blue",
-      vehicleId: "#22930",
-      tripHistory: [
-        {
-          tripStatus: "completed",
-          from: "32 Samwell Sq, Chevron",
-          to: "21b, Karimu Kotun Street, Victoria Island",
-          timeLeft: "20",
-          reciepient: "Paul Pogba",
-          paytype: ["card", "cash"],
-          cash: "450",
-          card: "450",
-          orderId: "#29039",
-          day: "26th July 2024",
-          time: "06:09pm",
-        },
-        // {"tripStatus": "In Progress","from": "32 Samwell Sq, Chevron","to": "21b, Karimu Kotun Street, Victoria Island","timeLeft": "20","reciepient": "Paul Pogba"},
-      ],
+  const handleVehicleFiles = (key: string, value: any) => {
+    setVehicleFiles((prev) => {
+      prev[key].file = value;
+      return { ...prev };
+    });
+  };
+
+  const [addVehicleData, setAddVehicleData] = useState<AddVehiclePayloadType>({
+    model: "",
+    year: "",
+    color: "",
+    plate_no: "",
+    verification_status: "not_approved",
+    interior_url: vehicleFiles.interior.url,
+    exterior_url: vehicleFiles.exterior.url,
+    plate_no_url: vehicleFiles.plateNumber.url,
+    registration_doc_url: vehicleFiles.regDoc.url,
+    is_active: false,
+    vehicle_code: "",
+    merchant: user.id!,
+    driver: "",
+  });
+
+  const handleAddVehicleData = (key: string, value: string | boolean) => {
+    setAddVehicleData((prev) => {
+      return {
+        ...prev,
+        [key]: value,
+      };
+    });
+  };
+
+  const handleAddVehicle = useMutation({
+    mutationFn: async () => {
+      await uploadFiles();
+      const payload = {
+        ...addVehicleData,
+        interior_url: vehicleFilesUrl.interior,
+        exterior_url: vehicleFilesUrl.exterior,
+        plate_no_url: vehicleFilesUrl.plateNumber,
+        registration_doc_url: vehicleFilesUrl.regDoc,
+      };
+
+      return await addVehicle(payload);
     },
-    {
-      name: "Porsche 911 Carrera Targa - 1975",
-      status: "active",
-      license: "APP 858 FT",
-      earning: "93.20",
-      driversName: "Allan Smith",
-      verifystatus: "Not Verified",
-      totalDeliveries: "124",
-      cash: "450",
-      card: "450",
-      bonus: "450",
-      campaign: "450",
-      doclicense: "approved",
-      vehiclereg: "Not Approved",
-      vindoc: "approved",
-      year: "2006",
-      color: "blue",
-      vehicleId: "#22930",
-      tripHistory: [
-        {
-          tripStatus: "In Progress",
-          from: "32 Samwell Sq, Chevron",
-          to: "21b, Karimu Kotun Street, Victoria Island",
-          timeLeft: "20",
-          reciepient: "Paul Pogba",
-          paytype: ["card", "cash"],
-          cash: "450",
-          card: "450",
-          orderId: "#29039",
-          day: "26th July 2024",
-          time: "06:09pm",
-        },
-        // {  "tripStatus": "completed","from": "32 Samwell Sq, Chevron","to": "21b, Karimu Kotun Street, Victoria Island","timeLeft": "20","reciepient": "Paul Pogba"}
-      ],
+    onSuccess(data: any) {
+      console.log(data);
     },
-  ]);
+    onError(error: any) {
+      console.log(error);
+    },
+  });
+
+  const uploadFiles = async () => {
+    const filesKey: string[] = Object.keys(vehicleFiles);
+
+    for (const key of filesKey) {
+      const formData = new FormData();
+      formData.append("images", vehicleFiles[key].file);
+      try {
+        if (!vehicleFiles[key].attemptedUpload || vehicleFiles[key].error) {
+          vehicleFiles[key].attemptedUpload = true;
+          const res = await uploadMedia(formData);
+          vehicleFiles[key].error = false;
+          vehicleFilesUrl[key] = res.data[0].image_url;
+          console.log(vehicleFilesUrl);
+        }
+      } catch (error: any) {
+        console.log(error);
+        vehicleFiles[key].error = " > " + error?.message;
+      }
+    }
+  };
 
   const [addVehicleOpen, setAddVehicleOpen] = useState(false);
   return (
@@ -158,6 +188,8 @@ const Vehicles = () => {
                   <p className="text-[14px] font-normal pb-1">Car Model</p>
                   <input
                     type="text"
+                    value={addVehicleData.model}
+                    onChange={(e) => handleAddVehicleData("model", e.target.value)}
                     placeholder=""
                     className="w-full p-2 rounded-xl bg-transparent border border-[#E2E2E2] text-sm"
                   />
@@ -168,6 +200,8 @@ const Vehicles = () => {
                     <p className="text-[14px] font-normal pb-1">Year</p>
                     <input
                       type="text"
+                      value={addVehicleData.year}
+                      onChange={(e) => handleAddVehicleData("year", e.target.value)}
                       placeholder=""
                       className="w-full p-2 rounded-xl bg-transparent border border-[#E2E2E2] text-sm"
                     />
@@ -176,6 +210,8 @@ const Vehicles = () => {
                     <p className="text-[14px] font-normal pb-1 w-full">License Plate</p>
                     <input
                       type="text"
+                      value={addVehicleData.plate_no}
+                      onChange={(e) => handleAddVehicleData("plate_no", e.target.value)}
                       placeholder=""
                       className="w-full p-2 rounded-xl bg-transparent border border-[#E2E2E2] text-sm"
                     />
@@ -187,22 +223,30 @@ const Vehicles = () => {
                     <p className="text-[14px] font-normal pb-1">Color</p>
                     <input
                       type="text"
+                      value={addVehicleData.color}
+                      onChange={(e) => handleAddVehicleData("color", e.target.value)}
                       placeholder=""
                       className="w-full p-2 rounded-xl bg-transparent border border-[#E2E2E2] text-sm"
                     />
                   </div>
-                  <div className="w-full">
+                  {/* SEAT FIELD <div className="w-full">
                     <p className="text-[14px] font-normal pb-1">Seats</p>
                     <input
                       type="text"
+                    value={addVehicleData.se}
+                    onChange={(e) => handleAddVehicleData('', e.target.value)}
                       placeholder=""
                       className="w-full p-2 rounded-xl bg-transparent border border-[#E2E2E2] text-sm"
                     />
-                  </div>
+                  </div> */}
                 </div>
                 <div className="bg-[#F0F5F5] border-[#A8DADC] border-2 rounded-md cursor-pointer flex justify-center items-center mb-2 relative">
-                  <input type="file" className="w-full opacity-0 h-16" />
-                  <div className="flex flex-col w-full justIfy-center items-center absolute">
+                  <input
+                    type="file"
+                    className="w-full h-16 z-20 opacity-0 absolute top-0 left-0 cursor-pointer"
+                    onChange={(e) => handleVehicleFiles("interior", e.target.files?.[0])}
+                  />
+                  <div className="flex flex-col justify-center items-center z-10">
                     <div className="bg-[#A8DADC] flex rounded-full p-1">
                       <Icon
                         icon="material-symbols-light:photo-camera-outline"
@@ -211,28 +255,20 @@ const Vehicles = () => {
                         style={{ color: "#004448" }}
                       />
                     </div>
-                    <span className="text-[13px]">Take Photos of the car interior</span>
-                  </div>
-                </div>
-
-                <div className="bg-[#F0F5F5] border-[#A8DADC] border-2 rounded-md cursor-pointer flex justify-center items-center mb-2 relative">
-                  <input type="file" className="w-full opacity-0 h-16" />
-                  <div className="flex flex-col justfy-center items-center absolute">
-                    <div className="bg-[#A8DADC] flex rounded-full p-1">
-                      <Icon
-                        icon="material-symbols-light:photo-camera-outline"
-                        width="1.2em"
-                        height="1.2em"
-                        style={{ color: "#004448" }}
-                      />
-                    </div>
-                    <span className="text-[13px]">Take Photos of the car exterior</span>
+                    <span className="text-[13px]">
+                      Take Photos of the car interior{" "}
+                      {vehicleFiles.interior.file.name ? `(${vehicleFiles.interior.file.name})` : ""}
+                    </span>
                   </div>
                 </div>
 
                 <div className="bg-[#F0F5F5] border-[#A8DADC] border-2 rounded-md cursor-pointer flex justify-center items-center mb-2 relative">
-                  <input type="file" className="w-full opacity-0 h-16" />
-                  <div className="flex flex-col justfy-center items-center absolute">
+                  <input
+                    type="file"
+                    className="w-full h-16 z-20 opacity-0 absolute top-0 left-0 cursor-pointer"
+                    onChange={(e) => handleVehicleFiles("exterior", e.target.files?.[0])}
+                  />
+                  <div className="flex flex-col justify-center items-center z-10">
                     <div className="bg-[#A8DADC] flex rounded-full p-1">
                       <Icon
                         icon="material-symbols-light:photo-camera-outline"
@@ -241,13 +277,20 @@ const Vehicles = () => {
                         style={{ color: "#004448" }}
                       />
                     </div>
-                    <span className="text-[13px]">Take Photos of the car plate number</span>
+                    <span className="text-[13px]">
+                      Take Photos of the car exterior
+                      {vehicleFiles.exterior.file.name ? `(${vehicleFiles.exterior.file.name})` : ""}
+                    </span>
                   </div>
                 </div>
 
-                <div className="bg-[#F0F5F5] border-[#A8DADC] border-2 rounded-md cursor-pointer flex justify-center items-center mb-2 h-fit relative">
-                  <input type="file" className="w-full opacity-0 h-16" />
-                  <div className="flex flex-col justfy-center items-center absolute">
+                <div className="bg-[#F0F5F5] border-[#A8DADC] border-2 rounded-md cursor-pointer flex justify-center items-center mb-2 relative">
+                  <input
+                    type="file"
+                    className="w-full h-16 z-20 opacity-0 absolute top-0 left-0 cursor-pointer"
+                    onChange={(e) => handleVehicleFiles("plateNumber", e.target.files?.[0])}
+                  />
+                  <div className="flex flex-col justify-center items-center z-10">
                     <div className="bg-[#A8DADC] flex rounded-full p-1">
                       <Icon
                         icon="material-symbols-light:photo-camera-outline"
@@ -256,12 +299,39 @@ const Vehicles = () => {
                         style={{ color: "#004448" }}
                       />
                     </div>
-                    <span className="text-[13px]">Take Photos of vehicle registration document</span>
+                    <span className="text-[13px]">
+                      Take Photos of the car plate number
+                      {vehicleFiles.plateNumber.file.name ? `(${vehicleFiles.plateNumber.file.name})` : ""}
+                    </span>
                   </div>
                 </div>
 
-                <div className="bg-yellow rounded-2xl p-3 cursor-pointer w-full mt-5">
-                  <h3 className="text-center text-[15px] font-medium">Submit for Review</h3>
+                <div className="bg-[#F0F5F5] border-[#A8DADC] border-2 rounded-md cursor-pointer flex justify-center items-center mb-2 relative">
+                  <input
+                    type="file"
+                    className="w-full h-16 z-20 opacity-0 absolute top-0 left-0 cursor-pointer"
+                    onChange={(e) => handleVehicleFiles("regDoc", e.target.files?.[0])}
+                  />
+                  <div className="flex flex-col justify-center items-center z-10">
+                    <div className="bg-[#A8DADC] flex rounded-full p-1">
+                      <Icon
+                        icon="material-symbols-light:photo-camera-outline"
+                        width="1.2em"
+                        height="1.2em"
+                        style={{ color: "#004448" }}
+                      />
+                    </div>
+                    <span className="text-[13px]">
+                      Take Photos of vehicle registration document
+                      {vehicleFiles.regDoc.file.name ? `(${vehicleFiles.regDoc.file.name})` : ""}
+                    </span>
+                  </div>
+                </div>
+
+                <div onClick={handleAddVehicle.mutate} className="bg-yellow rounded-2xl p-3 cursor-pointer w-full mt-5">
+                  <h3 className="text-center text-[15px] font-medium">
+                    {handleAddVehicle.isPending ? "Submitting..." : "Submit for Review"}
+                  </h3>
                 </div>
               </div>
             </div>

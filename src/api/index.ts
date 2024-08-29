@@ -1,37 +1,43 @@
 import axios from "axios";
 import { getCachedData } from "../helpers/storage";
 
+const createAxiosInstance = (axios: any, config: any) => {
+  const instance = axios.create(config);
 
-export const BASE_URL = "https://backend-yyya.onrender.com/api/";
-
-const apiClient = axios.create({
-  baseURL: BASE_URL,
-});
-
-apiClient.interceptors.request.use(
-  async (config: any) => {
-    const token = await getCachedData("token");
-    if (token) {
-      config.headers["Authorization"] = "Bearer " + token;
+  instance.interceptors.request.use(
+    async (config: any) => {
+      const token = await getCachedData("token");
+      if (token) {
+        config.headers["Authorization"] = "Bearer " + token;
+      }
+      return config;
+    },
+    (error: any) => {
+      return Promise.reject(error);
     }
-    return config;
-  },
-  (error: any) => {
-    return Promise.reject(error);
-  }
-);
+  );
 
-apiClient.interceptors.response.use(
-  async (response: any) => {
-    return response.data;
-  },
-  (error: any) => {
-    const status = error.response.status;
-    const data = error.response.data;
-    handleError(status, data);
-    return Promise.reject(convertError(data));
-  }
-);
+  instance.interceptors.response.use(
+    async (response: any) => {
+      return response.data;
+    },
+    (error: any) => {
+      const status = error.response.status;
+      const data = error.response.data;
+      handleError(status, data);
+      return Promise.reject(convertError(data));
+    }
+  );
+
+  return instance;
+};
+
+const apiClient = createAxiosInstance(axios, { baseURL: "https://backend-yyya.onrender.com/api/" });
+
+export const mediaClient = createAxiosInstance(axios, {
+  baseURL: "https://backend-yyya.onrender.com/api/user_mgt/upload_media/",
+  "Content-Type": "multipart/form-data",
+});
 
 export default apiClient;
 
@@ -39,6 +45,7 @@ const handleError = (status: number, data: any) => {
   switch (status) {
     case 400:
       console.error("Bad Request:", data);
+      return data;
       break;
     case 401:
       console.error("Unauthorized:", data);
@@ -47,6 +54,7 @@ const handleError = (status: number, data: any) => {
       break;
     case 403:
       console.error("Forbidden:", data);
+      return data;
       break;
     case 404:
       console.error("Not Found:", data);
@@ -54,6 +62,7 @@ const handleError = (status: number, data: any) => {
       break;
     case 429:
       console.error("Too Many Requests:", data);
+      return data;
       // Implement retry logic or exponential backoff
       break;
     case 500:
