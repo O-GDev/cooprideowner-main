@@ -15,6 +15,8 @@ const Vehicles = () => {
     queryFn: getVehicles,
   });
 
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
   const vehicleFilesUrl: { [key: string]: string } = {
     interior: "",
     exterior: "",
@@ -79,6 +81,7 @@ const Vehicles = () => {
 
   const handleAddVehicle = useMutation({
     mutationFn: async () => {
+      setIsSubmitting(true)
       await uploadFiles();
       const payload = {
         ...addVehicleData,
@@ -92,8 +95,10 @@ const Vehicles = () => {
     },
     onSuccess(data: any) {
       console.log(data);
+      setIsSubmitting(false)
     },
     onError(error: any) {
+      setIsSubmitting(false)
       console.log(error);
     },
   });
