@@ -8,7 +8,8 @@ export const signUp = async (payload: {}) => {
     const res = await apiClient.post("user_mgt/signup/", payload);
     console.log(res);
     return res.data;
-  } catch (error) {
+  } catch (error: any) {
+    showToast(getErrorMessage(error));
     throw error;
   }
 };
