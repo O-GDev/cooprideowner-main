@@ -43,10 +43,8 @@ export const verifyEmail = async (payload: { email: string; otp: string }) => {
 };
 
 export const updateProfile = async (userId: string, payload: {}) => {
-  console.log("updating profile", payload);
   try {
     const res = await apiClient.patch(`user_mgt/merchants/${userId}`, payload);
-    console.log(res);
     return res.data;
   } catch (error) {
     throw error;
