@@ -68,6 +68,24 @@ const Signin = () => {
           <div className='bg-yellow rounded-2xl p-3 cursor-pointer' onClick={handleLogin.mutate}>
             <h3 className='text-center'>Login</h3>
           </div>
+
+          <div
+          style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}
+          >
+          <div
+                className="bg-yellow rounded-2xl p-3 cursor-pointer"
+                onClick={() => navigate('signup')}
+              >
+                <p className="text-center">Sign up</p>
+              </div>
+              <div
+                className="bg-yellow rounded-2xl p-3 cursor-pointer"
+                onClick={() => navigate('signin')}
+              >
+                <p className="text-center">Forgot password</p>
+              </div>
+          </div>
+
        </div>
         </div>
       </div>
