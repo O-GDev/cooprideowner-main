@@ -6,8 +6,10 @@ import Vehicles from '../screens/vehicles'
 import TransactionHistory from '../screens/transactionHistory'
 import Settings from '../screens/settings'
 import { useLocation, useNavigate } from 'react-router-dom'
+import { useAppState } from '../context/AppContext'
 
 function Sidebar() {
+    const {logout} = useAppState();
     const [current, setCurrent] = useState()
     const [fullName, setFullName] = useState("Uwak Daniel")
     const [menuOpen, setMenuOpen] = useState(false)
@@ -73,7 +75,9 @@ function Sidebar() {
         <h2 className='text-[19px] pl-3 text-black'>{fullName}</h2>
         </div>
         </div>
-        <div className='bg-red rounded-full flex'>
+        <div 
+        onClick={logout}
+        className='bg-red rounded-full flex'>
         <Icon icon="ant-design:logout-outlined" width="1.2em" height="1.2em" className='m-2' style={{color:'white'}} />
         </div>
         </div>

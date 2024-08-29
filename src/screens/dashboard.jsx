@@ -1,13 +1,11 @@
 import { Icon } from "@iconify-icon/react/dist/iconify.js"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { useAppState } from "../context/AppContext"
 import { useQuery } from "../../node_modules/@tanstack/react-query/build/legacy/useQuery"
 import { getOwnerData } from "../api/dashboard.api"
-import { getCachedData } from "../helpers/storage"
 
 const Dashboard = () => {
   const {user} = useAppState();
-
 
   const {data} = useQuery({
     queryFn:getOwnerData

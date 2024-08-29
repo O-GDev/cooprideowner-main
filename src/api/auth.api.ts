@@ -79,3 +79,15 @@ export const verifyPassword = async (payload: { password: string }) => {
     throw error;
   }
 };
+
+
+export const changePassword = async (payload: { new_password: string; current_password: string; confirm_password: string }) => {
+  try {
+    const res = await apiClient.post("user_mgt/reset_password/", payload);
+    return res.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+
