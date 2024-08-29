@@ -8,6 +8,7 @@ import { AddVehiclePayloadType, VehicleType } from "../types/api/mainApi.type";
 import React from "react";
 import { useMutation } from "../../node_modules/@tanstack/react-query/build/legacy/useMutation";
 import { useAppState } from "../context/AppContext";
+import { showToast } from "@/utils/toast";
 
 const Vehicles = () => {
   const { user } = useAppState();
@@ -95,10 +96,13 @@ const Vehicles = () => {
     },
     onSuccess(data: any) {
       console.log(data);
+      showToast('Vehicle added successfully', 'success')
+      setAddVehicleOpen(false)
       setIsSubmitting(false)
     },
     onError(error: any) {
       setIsSubmitting(false)
+      setAddVehicleOpen(false)
       console.log(error);
     },
   });
