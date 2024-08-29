@@ -10,6 +10,7 @@ import { useMutation } from '../../node_modules/@tanstack/react-query/build/lega
 import { login } from '../api/auth.api';
 import { useAppState } from '../context/AppContext';
 import { cacheData } from '../helpers/storage';
+import { showToast } from '@/utils/toast';
 
 const Signin = () => {
   const {cacheUser} = useAppState()
@@ -24,6 +25,7 @@ const Signin = () => {
       cacheUser(data.data)
       cacheData('token', data.access);
       cacheData('refresh', data.refresh);
+      showToast('Login successful', 'success')
       navigate("/dashboard")
     }
   })
@@ -62,11 +64,8 @@ const Signin = () => {
          </div></div>
         </div>
         
-         
-          
-         
           <div className='bg-yellow rounded-2xl p-3 cursor-pointer' onClick={handleLogin.mutate}>
-            <h3 className='text-center'>Login</h3>
+            <h3 className='text-center'>{handleLogin.isPending ? 'Login in...' :'Login'}</h3>
           </div>
 
           <div

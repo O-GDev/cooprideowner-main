@@ -12,13 +12,19 @@ const VerifyEmail = () => {
   const location = useLocation();
   const { email } = location.state || {};
   const [otp, setOtp] = useState('');
+  const [isVerifying, setIsVerifying] = useState(false)
 
   const handleVerify = async () => {
+    if (isVerifying) return;
+    
+    setIsVerifying(true)
     try {
       await verifyEmail({email, otp})
       navigate("/signin");
     } catch (error) {
       console.log(error?.message)
+    } finally {
+      setIsVerifying(false)
     }
   }
 
@@ -49,7 +55,7 @@ const VerifyEmail = () => {
           
          
           <div className='bg-yellow rounded-2xl p-3 cursor-pointer my-3' onClick={handleVerify}>
-            <h3 className='text-center font-semibold'>Finish Sign Up</h3>
+            <h3 className='text-center font-semibold'>{isVerifying ? 'Verifying...' :'Finish Sign Up'}</h3>
           </div>
        </div>
         </div>

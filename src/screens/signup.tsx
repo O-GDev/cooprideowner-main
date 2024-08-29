@@ -1,11 +1,9 @@
 import background from "../assets/background.png";
 import logo from "../assets/coopridelogo.png";
-import { Flex, Input, ConfigProvider } from "antd";
-import { UserOutlined } from "@ant-design/icons";
-import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
+import { ConfigProvider } from "antd";
 import { Icon } from "@iconify-icon/react/dist/iconify.js";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import React from "react";
 import { useMutation } from "../../node_modules/@tanstack/react-query/build/legacy/useMutation";
 import { signUp } from "../api/auth.api";
@@ -13,7 +11,6 @@ import { ValidatorClass } from "../utils/validator";
 
 const Signup = () => {
   const [open, setOpen] = useState(false);
-  const [city, setCity] = useState();
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
