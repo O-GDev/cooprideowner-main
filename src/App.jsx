@@ -10,30 +10,26 @@ import { BrowserRouter, Routes, HashRouter as Router, Route } from "react-router
 
 function App() {
   return (
-    // <BrowserRouter>
-    <div>
-
-<Router>
+    <BrowserRouter>
+    <Routes>
       {/* <Route path="/" element={<Signup />}  > */}
       <Route index path="" element={<Signup />} />
         <Route path="signin" element={<Signin />} />
         <Route path="verifyotp" element={<VerifyEmail />} />
-    </Router>
+    </Routes>
 
   <div className="flex">
   <Sidebar />
-    <Router>
+    <Routes>
            {/* <div className="flex"> */}
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="vehicles" element={<Vehicles />} />
           <Route path="transactionhistory" element={<TransactionHistory />} />
           <Route path="settings" element={<Settings />} />
         {/* </div> */}
-    </Router>
+    </Routes>
   </div>
-      
-    </div>
-  // {/* </BrowserRouter> */}
+  </BrowserRouter>
     // <Signup />
     // <Signin />
     // <VerifyEmail />
