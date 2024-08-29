@@ -6,30 +6,34 @@ import Signup from "./screens/signup"
 import TransactionHistory from "./screens/transactionHistory"
 import Vehicles from "./screens/vehicles"
 import VerifyEmail from "./screens/verifyemail"
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, HashRouter as Router, Route } from "react-router-dom";
 
 function App() {
   return (
-    <BrowserRouter>
-    <Routes>
+    // <BrowserRouter>
+    <div>
+
+<Router>
       {/* <Route path="/" element={<Signup />}  > */}
       <Route index path="" element={<Signup />} />
         <Route path="signin" element={<Signin />} />
         <Route path="verifyotp" element={<VerifyEmail />} />
-    </Routes>
+    </Router>
 
   <div className="flex">
   <Sidebar />
-    <Routes>
+    <Router>
            {/* <div className="flex"> */}
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="vehicles" element={<Vehicles />} />
           <Route path="transactionhistory" element={<TransactionHistory />} />
           <Route path="settings" element={<Settings />} />
         {/* </div> */}
-    </Routes>
+    </Router>
   </div>
-  </BrowserRouter>
+      
+    </div>
+  // {/* </BrowserRouter> */}
     // <Signup />
     // <Signin />
     // <VerifyEmail />
