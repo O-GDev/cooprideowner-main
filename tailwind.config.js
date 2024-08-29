@@ -1,6 +1,10 @@
 /** @type {import('tailwindcss').Config} */
 export default {
+<<<<<<< HEAD
   content: ['./src/**/*.{html,js,jsx, ts, tsx}'],
+=======
+  content: ['./src/**/*.{html,js,jsx,ts,tsx}'],
+>>>>>>> main
   theme: {
     colors: {
       'blue': '#1fb6ff',

@@ -14,6 +14,7 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
+          {/* <Route path="/" element={<Signup />}  > */}
           <Route index path="" element={<Signup />} />
           <Route path="signin" element={<Signin />} />
           <Route path="verifyotp" element={<VerifyEmail />} />
