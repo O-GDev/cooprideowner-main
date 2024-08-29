@@ -75,13 +75,9 @@ function Sidebar() {
         <h2 className='text-[19px] pl-3 text-black'>{fullName}</h2>
         </div>
         </div>
-<<<<<<< HEAD
-        <div className='bg-red rounded-full flex'>
-=======
         <div 
         onClick={logout}
         className='bg-red rounded-full flex'>
->>>>>>> 578780e (re-initiation)
         <Icon icon="ant-design:logout-outlined" width="1.2em" height="1.2em" className='m-2' style={{color:'white'}} />
         </div>
         </div>
