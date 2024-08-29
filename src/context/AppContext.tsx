@@ -1,6 +1,7 @@
 // ChatGPT inspired
 import React, { createContext, useState, ReactNode, useContext } from "react";
 import { cacheData, removeCachedData } from "../helpers/storage";
+import { logoutApi } from "@/api/auth.api";
 
 interface userType {
   address?: string;
@@ -61,13 +62,17 @@ const AppStateContext = createContext<AuthContextType | undefined>(initialState)
 export const AppStateProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<userType>(initialState.user);
 
+  console.log(user)
+
   const cacheUser = (user: userType) => {
     cacheData("user", user);
     setUser(user);
   };
 
-  const logout = () => {
+  const logout = async () => {
+    await logoutApi()
     removeCachedData('user');
+    removeCachedData('token');
     setUser(initialState.user);
   };
 

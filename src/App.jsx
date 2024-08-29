@@ -1,3 +1,4 @@
+import { Toaster } from "../node_modules/react-hot-toast/dist/index"
 import Sidebar from "./components/sidebar"
 import Dashboard from "./screens/dashboard"
 import Settings from "./screens/settings"
@@ -10,6 +11,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
   return (
+    <>
     <BrowserRouter>
     <Routes>
       {/* <Route path="/" element={<Signup />}  > */}
@@ -30,6 +32,8 @@ function App() {
     </Routes>
   </div>
   </BrowserRouter>
+  <Toaster />
+    </>
     // <Signup />
     // <Signin />
     // <VerifyEmail />

@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import { Icon } from "@iconify-icon/react/dist/iconify.js";
-import { ValidatorClass, validatorInstance } from "../utils/validator";
-import { useMutation } from "../../node_modules/@tanstack/react-query/build/legacy/useMutation";
+import { validatorInstance } from "../utils/validator";
 import { changePassword } from "../api/auth.api";
+import { useMutation } from "../../node_modules/@tanstack/react-query/build/legacy/useMutation";
+import { showToast } from "@/utils/toast";
+import { getErrorMessage } from "@/utils/errorHandler";
 
 const Settings = () => {
   const [passModalOpen, setPassModalOpen] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [shouldShowError, setShouldShowError] = useState(false);
 
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
@@ -20,14 +23,15 @@ const Settings = () => {
   }
 
   const handleChangePassword = useMutation({
-    mutationFn: changePassword({
-      new_password: newPassword,
-      current_password: currentPassword,
-      confirm_password: confirmPassword,
-    }),
-    onSuccess: (data: any) => {
-      console.log(data);
-    },
+    mutationFn: () =>
+      changePassword({
+        new_password: newPassword,
+        current_password: currentPassword,
+        confirm_password: confirmPassword,
+      }),
+    onSuccess: () => {
+      setPassModalOpen(false)
+    }
   });
 
   return (
@@ -44,10 +48,7 @@ const Settings = () => {
               className="bg-white rounded-xl shadow-sm mt-8 p-4 cursor-pointer"
               onClick={() => setPassModalOpen(true)}
             >
-              <div
-                onClick={() => !Boolean(error) && handleChangePassword.mutate()}
-                className="flex justify-between items-center"
-              >
+              <div className="flex justify-between items-center">
                 <div>
                   <h4 className="text-[14px] font-medium">Change Password</h4>
                 </div>
@@ -110,7 +111,7 @@ const Settings = () => {
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
                 type={showPassword ? "text" : "password"}
-                placeholder="Password"
+                placeholder="New password"
                 className="w-full p-3 rounded-xl bg-transparent border border-[#E2E2E2] pl-12 text-sm"
               />
               <div
@@ -151,9 +152,18 @@ const Settings = () => {
                 )}
               </div>
             </div>
-
-            <div className="bg-yellow rounded-2xl p-3 cursor-pointer w-full mt-5" onClick={() => proceedWithdrawal()}>
-              <h3 className="text-center text-[15px] font-medium">Change Password</h3>
+            {error && (
+              <h2 className="text-[8px]" style={styles.error}>
+                {error}
+              </h2>
+            )}
+            <div
+              className="bg-yellow rounded-2xl p-3 cursor-pointer w-full mt-5"
+              onClick={() => !Boolean(error) && handleChangePassword.mutate()}
+            >
+              <h3 className="text-center text-[15px] font-medium">
+                {handleChangePassword.isPending ? "loading..." : "Change Password"}
+              </h3>
             </div>
           </div>
         </div>
@@ -163,3 +173,9 @@ const Settings = () => {
 };
 
 export default Settings;
+
+const styles = {
+  error: {
+    color: "red",
+  },
+};

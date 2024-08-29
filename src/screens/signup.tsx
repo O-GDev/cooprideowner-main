@@ -26,7 +26,7 @@ const Signup = () => {
     business_name: "",
     password: "",
     privacyPolicy: false,
-    user_type: "merchant"
+    user_type: "merchant",
   });
 
   const handleChangeFormData = (key: string, value: string | boolean) => {
@@ -39,7 +39,6 @@ const Signup = () => {
       return newData;
     });
   };
-
 
   const handleSignup = useMutation({
     mutationFn: () => signUp(formData),
@@ -214,7 +213,7 @@ const Signup = () => {
                 className="bg-yellow rounded-2xl p-3 cursor-pointer"
                 onClick={() => !formError.hasError && handleSignup.mutate()}
               >
-                <h3 className="text-center">Continue</h3>
+                <h3 className="text-center">{handleSignup.isPending ? "Registering..." : "Continue"}</h3>
               </div>
             </div>
           </div>

@@ -1,9 +1,9 @@
 {
     "compilerOptions": {
       /* Basic Options */
-    //   "paths": {
-    //     "@/*": ["./src/*"],
-    //   },
+      "paths": {
+        "@/*": ["./src/*"],
+      },
       "target": "ES6",                          // Set the JavaScript language version for emitted JavaScript and include compatible library declarations.
       "module": "ESNext",                       // Specify the module code generation.
       "lib": ["DOM", "ESNext"],                 // Specify library files to be included in the compilation.

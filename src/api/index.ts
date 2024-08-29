@@ -49,6 +49,7 @@ const handleError = (status: number, data: any) => {
       break;
     case 401:
       console.error("Unauthorized:", data);
+      
       return data.detail;
       // Optionally, redirect to login page
       break;
