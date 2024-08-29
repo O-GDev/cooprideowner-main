@@ -1,4 +1,6 @@
+import { showToast } from "@/utils/toast";
 import apiClient from ".";
+import { getErrorMessage } from "@/utils/errorHandler";
 
 export const signUp = async (payload: {}) => {
   console.log("signing up", payload);
@@ -12,12 +14,20 @@ export const signUp = async (payload: {}) => {
 };
 
 export const login = async (payload: { email: string; password: string }) => {
-  console.log("login in", payload);
   try {
     const res = await apiClient.post("user_mgt/login/", payload);
     return res;
-  } catch (error) {
-    console.error(error);
+  } catch (error: any) {
+    showToast(getErrorMessage(error));
+    throw error;
+  }
+};
+
+export const logoutApi = async () => {
+  try {
+    await apiClient.post("user_mgt/logout/");
+    showToast("Logged out successfully", "success");
+  } catch (error: any) {
     throw error;
   }
 };
@@ -75,19 +85,21 @@ export const verifyPassword = async (payload: { password: string }) => {
     const res = await apiClient.post("user_mgt/verify_password/", payload);
     return res.data;
   } catch (error) {
-    console.error(error)
+    console.error(error);
     throw error;
   }
 };
 
-
-export const changePassword = async (payload: { new_password: string; current_password: string; confirm_password: string }) => {
+export const changePassword = async (payload: {
+  new_password: string;
+  current_password: string;
+  confirm_password: string;
+}) => {
   try {
     const res = await apiClient.post("user_mgt/reset_password/", payload);
-    return res.data;
-  } catch (error) {
+    showToast("Password updated sucessfully", "success");
+  } catch (error: any) {
+    showToast(getErrorMessage(error), "error");
     throw error;
   }
 };
-
-
