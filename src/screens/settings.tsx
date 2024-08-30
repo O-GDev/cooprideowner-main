@@ -3,8 +3,6 @@ import { Icon } from "@iconify-icon/react/dist/iconify.js";
 import { validatorInstance } from "../utils/validator";
 import { changePassword } from "../api/auth.api";
 import { useMutation } from "../../node_modules/@tanstack/react-query/build/legacy/useMutation";
-import { showToast } from "@/utils/toast";
-import { getErrorMessage } from "@/utils/errorHandler";
 
 const Settings = () => {
   const [passModalOpen, setPassModalOpen] = useState(false);
