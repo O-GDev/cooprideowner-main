@@ -213,10 +213,10 @@ const Signup = () => {
                 <h3 className="text-center">{handleSignup.isPending ? "Registering..." : "Continue"}</h3>
               </div>
               <div
-                className="bg-yellow rounded-2xl p-3 cursor-pointer"
-                onClick={() => navigate('signin')}
+                className="flex justify-center"
               >
-                <p className="text-center">Sign in</p>
+                <span>Already have an account? <span className="text-center cursor-pointer"
+                onClick={() => navigate('/signin')}>Sign in</span></span>
               </div>
             </div>
           </div>

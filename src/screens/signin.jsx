@@ -73,13 +73,13 @@ const Signin = () => {
           >
           <div
                 className="bg-yellow rounded-2xl p-3 cursor-pointer"
-                onClick={() => navigate('signup')}
+                onClick={() => navigate('/')}
               >
                 <p className="text-center">Sign up</p>
               </div>
               <div
                 className="bg-yellow rounded-2xl p-3 cursor-pointer"
-                onClick={() => navigate('signin')}
+                onClick={() => navigate('/signin')}
               >
                 <p className="text-center">Forgot password</p>
               </div>
