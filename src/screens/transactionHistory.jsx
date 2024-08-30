@@ -1,7 +1,6 @@
 import { Icon } from '@iconify-icon/react/dist/iconify.js'
-import React, { useState } from 'react'
 import { useQuery } from '../../node_modules/@tanstack/react-query/build/legacy/useQuery'
-import { getTransactionHistory, getVehicles } from '../api/main.api'
+import { getTransactionHistory } from '../api/main.api'
 import { useAppState } from '../context/AppContext'
 
 
