@@ -28,9 +28,9 @@ const Dashboard = () => {
    <div className="">
       <h5 className="font-semibold text-xl">Dashboard</h5>
     </div>
-   <div className="flex flex-col sm:flex-row mt-10 w-full gap-10">
+   <div className="flex flex-col sm:flex-row sm:mt-10 w-full gap-10 p-5 sm:p-0">
    <div className="w-full">
-   <div className="flex sm:flex-row flex-col gap-10">
+   <div className="flex sm:flex-row flex-col gap-3 lg:gap-10">
       <div className="bg-white shadow-lg w-full rounded-xl">
         <div className="flex justify-between p-5 items-center">
           <h2>Total Earning</h2>
@@ -39,7 +39,7 @@ const Dashboard = () => {
           </div>
          </div>
          <div className="px-5 pb-5">
-         <h1 className="text-5xl font-semibold"><span className="pr-2"> N</span>{data?.total_earnings}</h1>
+         <h1 className="text-3xl font-semibold"><span className="pr-2"> N</span>{data?.total_earnings}</h1>
          </div>
          </div>
 

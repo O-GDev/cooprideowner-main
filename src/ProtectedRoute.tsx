@@ -8,7 +8,7 @@ import Settings from "./screens/settings";
 
 function ProtectedRoutes({isAuthenticated}:{isAuthenticated: boolean}) {
   if (!isAuthenticated) {
-    return <Navigate to={{ pathname: "" }} />;
+    return <Navigate to={{ pathname: "/signin" }} />;
   }
 
   return (

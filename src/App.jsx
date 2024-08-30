@@ -18,12 +18,13 @@ function App() {
   return (
     <>
       <BrowserRouter>
-      {user.id &&
+      {!user.id &&
       <Sidebar />}
         <Routes>
           <Route index path="" element={<Signup />} />
           <Route path="signin" element={<Signin />} />
           <Route path="verifyotp" element={<VerifyEmail />} />
+          <Route path="vehicles" element={<Vehicles />} />  
 
           <Route element={<ProtectedRoutes isAuthenticated = {user.id} />} >
           <Route path="dashboard" element={<Dashboard />} />

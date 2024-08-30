@@ -12,9 +12,10 @@ import { showToast } from "@/utils/toast";
 
 const Vehicles = () => {
   const { user } = useAppState();
-  const { data: vehicles } = useQuery<{}, {}, VehicleType[]>({
-    queryFn: getVehicles,
-  });
+  // const { data: vehicles } = useQuery<{}, {}, VehicleType[]>({
+  //   queryFn: getVehicles,
+  // });
+  const vehicles = useState([{}])
 
   const [isSubmitting, setIsSubmitting] = useState(false)
 
@@ -144,16 +145,16 @@ const Vehicles = () => {
               </div>
             </div>
 
-            <div className="pt-10 overflow-x-auto w-full">
-              <div className="flex justify-between gap-10">
-                <div className="w-full flex justify-center text-[12px] lg:text-[14px]">
+            <div className="pt-10 overflow-x-auto w-full flex flex-col justify-center">
+              <div className="flex justify-between gap-10 w-[92%] sm:w-full">
+                <div className="w-full flex sm:justify-center text-[12px] lg:text-[14px] pl-1 sm:pl-8">
                   <h2>Vehicles</h2>
                 </div>
                 {/* <div className="w-52 flex justify-center text-[12px] lg:text-[14px] whitespace-nowrap"><h2>Verification Status</h2></div> */}
-                <div className="w-full flex justify-center text-[12px] lg:text-[14px]">
+                <div className="w-full flex justify-center text-[12px] lg:text-[14px] pl-1 sm:pl-8">
                   <h2>Status</h2>
                 </div>
-                <div className="w-full flex justify-start sm:justify-center text-[12px] lg:text-[14px] ">
+                <div className="w-full flex justify-start sm:justify-center text-[12px] lg:text-[14px] pl-1 sm:pl-8">
                   <h2>License Plate</h2>
                 </div>
                 <div className="w-full flex justify-start sm:justify-center text-[12px] lg:text-[14px]">

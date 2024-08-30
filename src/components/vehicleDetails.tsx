@@ -94,17 +94,17 @@ export const VehicleDetails = ({ data }: { data: VehicleType }) => {
             style={{ paddingTop: 10, paddingBottom: 10 }}
           >
             <div className="flex justify-between cursor-pointer w-full" onClick={() => setOpen(!open)}>
-              <div className="w-full flex justify-center items-center text-[12px] lg:text-[14px] ">
-                <h4>{data.model}</h4>
+              <div className="w-full flex sm:justify-center items-center text-[12px] lg:text-[14px]">
+                <h4>{data.model}tyui</h4>
               </div>
               {/* <div className='w-50 flex justify-center items-center text-[12px] lg:text-[14px] whitespace-nowrap'><h4>{data.verifystatus}</h4></div> */}
-              <div className="w-full text-[12px] lg:text-[14px] flex  justify-center items-center whitespace-nowrap">
+              <div className="w-full text-[12px] lg:text-[14px] flex  sm:justify-center items-center whitespace-nowrap mr-2 sm:mr-0">
                 <h4 className="uppercase border border-green text-green rounded-full p-1 sm:p-2 flex-col flex">
-                  {data.status}
+                  {data.status}active
                 </h4>
               </div>
-              <div className=" w-full flex justify-center items-center text-[12px] lg:text-[14px] whitespace-nowrap">
-                <h4>{data.plate_no}</h4>
+              <div className=" w-full flex sm:justify-center items-center text-[12px] lg:text-[14px] whitespace-nowrap">
+                <h4>{data.plate_no}45678i90</h4>
               </div>
               <div className=" w-4/6 flex justify-between items-center text-[12px] lg:text-[14px] ">
                 <h4 className="text-green font-bold">₦{data.earnings}</h4>
