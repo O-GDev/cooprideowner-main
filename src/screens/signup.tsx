@@ -190,7 +190,7 @@ const Signup = () => {
                   placeholder="Company Name"
                   className="w-full p-3 rounded-xl bg-transparent border border-gray text-sm"
                 />
-                <p className="text-[12px]">Please use your companies legal name written in full</p>
+                <p className="text-[12px]">Please use your company's legal name written in full</p>
               </div>
 
               <div className="flex">

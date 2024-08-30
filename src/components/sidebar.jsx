@@ -106,13 +106,16 @@ function Sidebar() {
               <div className="relative bottom-12">
                 <div className="flex justify-between w-full items-center px-4">
                   <div className={`text-[19px] pl-5 ${menuOpen ? "flex" : "hidden"} lg:flex`}>
-                    <div className="text-[#616161] flex items-center">
-                      <span className="w-12 h-12 rounded-full bg-[#D9D9D9]">
-                        <img
+                    <div
+                    //  className="text-[#616161] flex items-center"
+                    >
+                      <span className="">
+                        Logout
+                        {/* <img
                           src={user.profile_pic_url}
                           alt="profile picture"
                           style={{ maxWidth: "100%", height: "auto" }}
-                        />
+                        /> */}
                       </span>
                       <h2 className="text-[19px] pl-3 text-black">{`${user.user_details.first_name} ${user.user_details.last_name}`}</h2>
                     </div>

@@ -57,7 +57,7 @@ const Dashboard = () => {
     </div>
     <div className="bg-white rounded-xl w-full flex shadow-lg mt-3 p-5 flex-col">
       <h2>Company Code</h2>
-      <span className="text-[#119001] pt-4 ">{data?.company_code}</span>
+      <span className="text-[#119001] pt-4 flex items-center">{data?.company_code}<span className="pl-2"><Icon icon="fluent:copy-32-light" width="1.2em" height="1.2em" /></span></span>
     </div>
    </div>
 
@@ -67,7 +67,7 @@ const Dashboard = () => {
       <h2 className="font-bold">{fullName}</h2>
       <h3>{mail}</h3>
       <div className='bg-yellow rounded-2xl p-3 cursor-pointer w-full mt-5' onClick={() => setEditProfileOpen(true)}>
-            <h3 className='text-center'>Edit Profile</h3>
+            <h3 className='text-center'>View Profile</h3>
           </div>
       </div>
     </div>
@@ -78,7 +78,7 @@ const Dashboard = () => {
     <div className='fixed inset-0 z-50 w-full h-full bg-transparent flex justify-center items-center drop-shadow-md p-5'>
         <div className='bg-white rounded-xl drop-shadow-md p-3 lg:p-5 pb-10 lg:w-1/3 w-full'>
         <div className="flex justify-between items-center">
-            <h2 className="text-[22px] font-bold">Edit Profile</h2>
+            <h2 className="text-[22px] font-bold">Profile</h2>
             <div className="cursor-pointer bg-white rounded-full p-1 shadow-md flex items-center" onClick={() => setEditProfileOpen(false)}>
             <Icon icon="iconoir:cancel" width="1.2em" height="1.2em" />
             </div>
@@ -128,9 +128,9 @@ const Dashboard = () => {
           </div>
           </div>
 
-            <div className='bg-yellow rounded-2xl p-3 cursor-pointer w-full mt-5' onClick={() => proceedWithdrawal()}>
+            {/* <div className='bg-yellow rounded-2xl p-3 cursor-pointer w-full mt-5' onClick={() => proceedWithdrawal()}>
             <h3 className='text-center text-[15px] font-medium'>Submit</h3>
-          </div>
+          </div> */}
         </div>
     </div>}
     </div>

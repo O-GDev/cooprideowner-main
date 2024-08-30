@@ -158,7 +158,7 @@ const Vehicles = () => {
                 </div>
                 <div className="w-full flex justify-start sm:justify-center text-[12px] lg:text-[14px]">
                   {" "}
-                  <h2>Earnings</h2>
+                  <h2 className="">Earnings</h2>
                 </div>
               </div>
 

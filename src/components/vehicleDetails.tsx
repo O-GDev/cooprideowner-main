@@ -106,7 +106,7 @@ export const VehicleDetails = ({ data }: { data: VehicleType }) => {
               <div className=" w-full flex justify-center items-center text-[12px] lg:text-[14px] whitespace-nowrap">
                 <h4>{data.plate_no}</h4>
               </div>
-              <div className=" w-full flex justify-between items-center text-[12px] lg:text-[14px] ">
+              <div className=" w-4/6 flex justify-between items-center text-[12px] lg:text-[14px] ">
                 <h4 className="text-green font-bold">₦{data.earnings}</h4>
                 <Icon
                   icon={open ? "fe:arrow-up" : "fe:arrow-down"}
