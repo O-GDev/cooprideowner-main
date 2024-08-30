@@ -216,7 +216,7 @@ const Signup = () => {
                 className="flex justify-center"
               >
                 <span>Already have an account? <span className="text-center cursor-pointer"
-                onClick={() => navigate('/signin')}>Sign in</span></span>
+                onClick={() => navigate('/signin')}>Sign In</span></span>
               </div>
             </div>
           </div>
