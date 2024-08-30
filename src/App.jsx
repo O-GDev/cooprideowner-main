@@ -18,7 +18,7 @@ function App() {
   return (
     <>
       <BrowserRouter>
-      {!user.id &&
+      {user.id &&
       <Sidebar />}
         <Routes>
           <Route index path="" element={<Signup />} />
