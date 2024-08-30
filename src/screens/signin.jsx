@@ -1,10 +1,8 @@
 import background from '../assets/background.png'
 import logo from '../assets/coopridelogo.png'
-import { Flex, Input, ConfigProvider } from 'antd';
-import { UserOutlined } from '@ant-design/icons';
-import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
+import { ConfigProvider } from 'antd';
 import { Icon } from '@iconify-icon/react/dist/iconify.js';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from '../../node_modules/@tanstack/react-query/build/legacy/useMutation';
 import { login } from '../api/auth.api';
@@ -64,32 +62,24 @@ const Signin = () => {
          </div></div>
         </div>
         
-          <div className='bg-yellow rounded-2xl p-3 cursor-pointer -mb-5' onClick={handleLogin.mutate}>
+          <div className='bg-yellow rounded-2xl p-3 cursor-pointer' onClick={handleLogin.mutate}>
             <h3 className='text-center'>{handleLogin.isPending ? 'Login in...' :'Login'}</h3>
           </div>
 
           <div
-          // style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}
+          style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}
           >
-          {/* <div
+          <div
                 className="bg-yellow rounded-2xl p-3 cursor-pointer"
                 onClick={() => navigate('/')}
               >
                 <p className="text-center">Sign up</p>
-              </div> */}
-              
-              <div
-                // className="bg-yellow rounded-2xl p-3 cursor-pointer"
-                className='flex justify-end cursor-pointer'
-                onClick={() => navigate('signin')}
-              >
-                <p className="text-center">Forgot password</p>
               </div>
               <div
-                className="flex justify-center pt-4"
+                className="bg-yellow rounded-2xl p-3 cursor-pointer"
+                onClick={() => navigate('/')}
               >
-                <span>Don't have an account? <span className="text-center cursor-pointer"
-                onClick={() => navigate('/')}>Sign Up</span></span>
+                <p className="text-center">Forgot password</p>
               </div>
           </div>
 

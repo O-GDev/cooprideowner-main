@@ -14,7 +14,7 @@ export const signUp = async (payload: {}) => {
 
 export const login = async (payload: { email: string; password: string }) => {
   try {
-    const res = await apiClient.post("user_mgt/login/", payload);
+    const res = await apiClient.post("user_mgt/login/", {...payload, user_type: 'merchant'});
     return res;
   } catch (error: any) {
     showToast(getErrorMessage(error));
