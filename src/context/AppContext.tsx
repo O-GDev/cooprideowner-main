@@ -62,8 +62,6 @@ const AppStateContext = createContext<AuthContextType | undefined>(initialState)
 export const AppStateProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<userType>(initialState.user);
 
-  console.log(user)
-
   const cacheUser = (user: userType) => {
     cacheData("user", user);
     setUser(user);

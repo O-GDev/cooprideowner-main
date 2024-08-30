@@ -3,10 +3,8 @@ import apiClient from ".";
 import { getErrorMessage } from "@/utils/errorHandler";
 
 export const signUp = async (payload: {}) => {
-  console.log("signing up", payload);
   try {
     const res = await apiClient.post("user_mgt/signup/", payload);
-    console.log(res);
     return res.data;
   } catch (error: any) {
     showToast(getErrorMessage(error));
@@ -72,7 +70,6 @@ export const resetPassword = async (payload: { password: string; email: string; 
 export const verifyOtp = async (payload: { email: string; otp: string }) => {
   try {
     const res = await apiClient.post("user_mgt/verify_otp/", payload);
-    console.log(res.data);
     return res.data;
   } catch (error) {
     throw error;

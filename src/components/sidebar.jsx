@@ -6,14 +6,11 @@ import { useAppState } from "../context/AppContext";
 
 function Sidebar() {
   const { user, logout } = useAppState();
-
-  console.log(user);
-
   const [current, setCurrent] = useState();
-  const [fullName, setFullName] = useState("Uwak Daniel");
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
+  
   return (
     <div>
       <div className={`flex fixed`}>

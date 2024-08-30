@@ -95,7 +95,6 @@ const Vehicles = () => {
       return await addVehicle(payload);
     },
     onSuccess(data: any) {
-      console.log(data);
       showToast('Vehicle added successfully', 'success')
       setAddVehicleOpen(false)
       setIsSubmitting(false)
@@ -103,7 +102,6 @@ const Vehicles = () => {
     onError(error: any) {
       setIsSubmitting(false)
       setAddVehicleOpen(false)
-      console.log(error);
     },
   });
 
@@ -119,10 +117,8 @@ const Vehicles = () => {
           const res = await uploadMedia(formData);
           vehicleFiles[key].error = false;
           vehicleFilesUrl[key] = res.data[0].image_url;
-          console.log(vehicleFilesUrl);
         }
       } catch (error: any) {
-        console.log(error);
         vehicleFiles[key].error = " > " + error?.message;
       }
     }

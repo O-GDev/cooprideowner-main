@@ -21,8 +21,8 @@ const VerifyEmail = () => {
     try {
       await verifyEmail({email, otp})
       navigate("/signin");
-    } catch (error) {
-      console.log(error?.message)
+    } catch (e) {
+      console.log(e)
     } finally {
       setIsVerifying(false)
     }

@@ -37,8 +37,6 @@ export const VehicleDetails = ({ data }: { data: VehicleType }) => {
     vehicle: data.id,
   });
 
-  //   console.log(data.rides);
-
   // const proceedWithdrawal = () =>{
   //     setWithdrawOpen(false)
   //     setPwithdrawOpen(true)
@@ -63,19 +61,14 @@ export const VehicleDetails = ({ data }: { data: VehicleType }) => {
   const hanldeVerifyPassword = useMutation({
     mutationFn: () => verifyPassword({ password }),
     onSuccess(data: any) {
-      console.log(data);
       hanldeWithdraw.mutate();
     },
   });
-
-  console.log(data.status, "  ... ");
 
   const { data: vehicleEarnings } = useQuery<{}, {}, VehicleEarningsType>({
     queryKey: ["vehice_earnings"],
     queryFn: () => getVehicleEarningsByDate({ vehicle_code: data.vehicle_code, date: new Date().toISOString() }),
   });
-
-  console.log(data);
 
   const requestWithdrawal = () => {
     setPwithdrawOpen(false);

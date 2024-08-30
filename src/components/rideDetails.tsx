@@ -6,8 +6,6 @@ import { RideType } from "../types/api/mainApi.type";
 import dayjs from "dayjs";
 
 function RideDetails({ tripData }: { tripData: RideType }) {
-//   console.log(tripData);
-
   return (
     <div>
       <div className={tripData.is_finished ? "flex flex-col" : "flex flex-col pt-2"}>
