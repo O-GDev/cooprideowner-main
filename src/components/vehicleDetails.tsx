@@ -100,7 +100,7 @@ export const VehicleDetails = ({ data }: { data: VehicleType }) => {
               {/* <div className='w-50 flex justify-center items-center text-[12px] lg:text-[14px] whitespace-nowrap'><h4>{data.verifystatus}</h4></div> */}
               <div className="w-full text-[12px] lg:text-[14px] flex  sm:justify-center items-center whitespace-nowrap mr-2 sm:mr-0">
                 <h4 className="uppercase border border-green text-green rounded-full p-1 sm:p-2 flex-col flex">
-                  {data.status}active
+                  {data.status}
                 </h4>
               </div>
               <div className=" w-full flex sm:justify-center items-center text-[12px] lg:text-[14px] whitespace-nowrap">

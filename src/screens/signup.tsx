@@ -18,7 +18,7 @@ const Signup = () => {
     first_name: "",
     last_name: "",
     email: "",
-    city: "",
+    state: "",
     phone_number: "",
     business_name: "",
     password: "",
@@ -52,7 +52,7 @@ const Signup = () => {
     .email(formData.email)
     .password(formData.password)
     .companyName(formData.business_name)
-    .state(formData.city)
+    .state(formData.state)
     .isPrivacyChecked(formData.privacyPolicy);
 
   return (
@@ -165,10 +165,10 @@ const Signup = () => {
                     style={{ color: "#119001" }}
                   />
                   <input
-                    value={formData.city}
-                    onChange={(e) => handleChangeFormData("city", e.target.value)}
+                    value={formData.state}
+                    onChange={(e) => handleChangeFormData("state", e.target.value)}
                     type="text"
-                    placeholder="City"
+                    placeholder="State"
                     className="w-full p-3 rounded-xl bg-transparent border border-gray pl-12 text-sm"
                   />
                   <Icon

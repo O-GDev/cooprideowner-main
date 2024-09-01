@@ -120,5 +120,10 @@ export interface VehicleFileType {
     type: string
 }
 
-
+export interface getVehiclesResponseType {
+  count: number,
+  next: number | null,
+  previous: number | null,
+  results: VehicleType[]
+}
 

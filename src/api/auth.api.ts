@@ -5,7 +5,7 @@ import { getErrorMessage } from "@/utils/errorHandler";
 export const signUp = async (payload: {}) => {
   try {
     const res = await apiClient.post("user_mgt/signup/", payload);
-    return res.data;
+    return res;
   } catch (error: any) {
     showToast(getErrorMessage(error));
     throw error;
@@ -42,8 +42,8 @@ export const verifyEmail = async (payload: { email: string; otp: string }) => {
 
 export const updateProfile = async (userId: string, payload: {}) => {
   try {
-    const res = await apiClient.patch(`user_mgt/merchants/${userId}`, payload);
-    return res.data;
+    const res = await apiClient.patch(`user_mgt/merchants/${userId}/`, payload);
+    return res;
   } catch (error) {
     throw error;
   }

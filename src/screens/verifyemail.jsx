@@ -1,11 +1,12 @@
 import background from '../assets/background.png'
 import logo from '../assets/coopridelogo.png'
-import { Flex, Input, ConfigProvider } from 'antd';
+import { ConfigProvider } from 'antd';
 import { useState } from 'react';
 import {useLocation} from "react-router-dom";
 import OTPInput from '../components/otpfield';
 import { useNavigate } from 'react-router-dom';
 import { verifyEmail } from '../api/auth.api';
+import { showToast } from '@/utils/toast';
 
 const VerifyEmail = () => {
   const navigate = useNavigate()
@@ -22,7 +23,7 @@ const VerifyEmail = () => {
       await verifyEmail({email, otp})
       navigate("/signin");
     } catch (e) {
-      console.log(e)
+      showToast(e.message,'error')
     } finally {
       setIsVerifying(false)
     }

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Sidebar from "../components/sidebar";
 import { useQuery } from "../../node_modules/@tanstack/react-query/build/legacy/useQuery";
 import { addVehicle, getVehicles, uploadMedia } from "../api/main.api";
-import { AddVehiclePayloadType, VehicleType } from "../types/api/mainApi.type";
+import { AddVehiclePayloadType, getVehiclesResponseType, VehicleType } from "../types/api/mainApi.type";
 import React from "react";
 import { useMutation } from "../../node_modules/@tanstack/react-query/build/legacy/useMutation";
 import { useAppState } from "../context/AppContext";
@@ -12,10 +12,10 @@ import { showToast } from "@/utils/toast";
 
 const Vehicles = () => {
   const { user } = useAppState();
-  const { data: vehicles } = useQuery<{}, {}, VehicleType[]>({
+  const { data: vehicles } = useQuery<{}, {}, getVehiclesResponseType>({
     queryFn: getVehicles,
   });
-  // const vehicles = useState([{}])
+
 
   const [isSubmitting, setIsSubmitting] = useState(false)
 
@@ -163,9 +163,9 @@ const Vehicles = () => {
                 </div>
               </div>
 
-              {vehicles && vehicles.length > 0 ? (
+              {vehicles && vehicles?.results?.length > 0 ? (
                 <div className="w-full">
-                  {vehicles.map((dat: VehicleType, index: number) => (
+                  {vehicles.results.map((dat: VehicleType, index: number) => (
                     <VehicleDetails data={dat} key={index.toString()} />
                   ))}
                 </div>
