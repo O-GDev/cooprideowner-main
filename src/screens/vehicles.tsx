@@ -12,10 +12,10 @@ import { showToast } from "@/utils/toast";
 
 const Vehicles = () => {
   const { user } = useAppState();
-  // const { data: vehicles } = useQuery<{}, {}, VehicleType[]>({
-  //   queryFn: getVehicles,
-  // });
-  const vehicles = useState([{}])
+  const { data: vehicles } = useQuery<{}, {}, VehicleType[]>({
+    queryFn: getVehicles,
+  });
+  // const vehicles = useState([{}])
 
   const [isSubmitting, setIsSubmitting] = useState(false)
 
