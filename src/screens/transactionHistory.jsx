@@ -25,8 +25,10 @@ const TransactionHistory = () => {
             <div className='bg-white rounded-xl shadow-sm mt-8 p-5'>
               {transactHistory.length > 0 ?
               <div>
-              {transactHistory.map((transaction) =>
-                    <div>
+              {transactHistory.map((transaction, index) =>
+                    <div
+                    key={index.toString()}
+                    >
                 <div className='flex justify-between items-center'>
                <div className="flex items-center">
                <div className='bg-yellow rounded-full flex justify-center items-center p-1'>

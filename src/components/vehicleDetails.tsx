@@ -26,7 +26,6 @@ export const VehicleDetails = ({ data }: { data: VehicleType }) => {
   const [withdrawPending, setWithdrawPending] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [eOpen, setEOpen] = useState(false);
-  const [setCurrentUrl, currentUrl] = useState("");
   const [withdrawInfo, setWithdrawInfo] = useState<WithdrawalRequestType>({
     amount: "",
     bank_name: "",
@@ -74,7 +73,6 @@ export const VehicleDetails = ({ data }: { data: VehicleType }) => {
     setPwithdrawOpen(false);
     setWithdrawAuth(true);
   };
-
   const pendingWithdraw = () => {
     setWithdrawAuth(false);
     setWithdrawPending(true);
@@ -95,7 +93,7 @@ export const VehicleDetails = ({ data }: { data: VehicleType }) => {
           >
             <div className="flex justify-between cursor-pointer w-full" onClick={() => setOpen(!open)}>
               <div className="w-full flex sm:justify-center items-center text-[12px] lg:text-[14px]">
-                <h4>{data.model}tyui</h4>
+                <h4>{data.model}</h4>
               </div>
               {/* <div className='w-50 flex justify-center items-center text-[12px] lg:text-[14px] whitespace-nowrap'><h4>{data.verifystatus}</h4></div> */}
               <div className="w-full text-[12px] lg:text-[14px] flex  sm:justify-center items-center whitespace-nowrap mr-2 sm:mr-0">
@@ -104,7 +102,7 @@ export const VehicleDetails = ({ data }: { data: VehicleType }) => {
                 </h4>
               </div>
               <div className=" w-full flex sm:justify-center items-center text-[12px] lg:text-[14px] whitespace-nowrap">
-                <h4>{data.plate_no}45678i90</h4>
+                <h4>{data.plate_no}</h4>
               </div>
               <div className=" w-4/6 flex justify-between items-center text-[12px] lg:text-[14px] ">
                 <h4 className="text-green font-bold">₦{data.earnings}</h4>
@@ -117,229 +115,223 @@ export const VehicleDetails = ({ data }: { data: VehicleType }) => {
                 />
               </div>
             </div>
-            {open &&
-              data.status ===
-                "ACTIVE" && (
-                  <div>
-                    <div className="mt-4 flex w-full gap-5 sm:flex-row flex-col">
-                      <div className="w-full">
-                        <div className="bg-[#F9F9F9] p-3 border border-[#E2E2E2] rounded-md pb-16">
-                          <span className="text-[#7A7A7A] text-[12px]">Model</span>
-                          <h2 className="text-[14px]">{data.model}</h2>
-                          <div className="py-3">
-                            <div className="w-full bg-[#DADADA] h-[0.6px]"></div>
-                          </div>
-
-                          <span className="text-[#7A7A7A] text-[12px]">Year</span>
-                          <h2 className="text-[14px]">{data.year}</h2>
-                          <div className="py-3">
-                            <div className="w-full bg-[#DADADA] h-[0.6px]"></div>
-                          </div>
-
-                          <span className="text-[#7A7A7A] text-[12px]">License Plate</span>
-                          <h2 className="text-[14px]">{data.plate_no}</h2>
-                          <div className="py-3">
-                            <div className="w-full bg-[#DADADA] h-[0.6px]"></div>
-                          </div>
-
-                          <span className="text-[#7A7A7A] text-[12px]">Color</span>
-                          <h2 className="text-[14px]">{data.color}</h2>
-                        </div>
-                        <div className="bg-[#F9F9F9] p-3 border border-[#E2E2E2] rounded-md mt-2 flex">
-                          <div className="flex flex-col mr-10">
-                            <span className="text-[#7A7A7A] text-[12px]">Vehicle Id</span>
-                            <span>{data.vehicle_code}</span>
-                          </div>
-                          <div>
-                            <div className="bg-[#D8D8D8] h-16 w-[0.5px]"></div>
-                          </div>
-                          <div className="am:ml-10 ml-2 flex">
-                            <div className="sm:h-16 sm:w-16 h-10 w-10 rounded-full bg-black flex"></div>
-                            <div className="pl-2">
-                              <h2 className="sm:text-xl ">{`${data.driver_details.first_name} ${data.driver_details.last_name}`}</h2>
-                              <span className="text-[#4F4F4F] text-[12px]">
-                                {data.no_of_deliveries} <span className="pl-1">Deliveries</span>
-                              </span>
-                            </div>
-                          </div>
-                        </div>
+            {open && data.verification_status === "approved" && (
+              <div>
+                <div className="mt-4 flex w-full gap-5 sm:flex-row flex-col">
+                  <div className="w-full">
+                    <div className="bg-[#F9F9F9] p-3 border border-[#E2E2E2] rounded-md pb-16">
+                      <span className="text-[#7A7A7A] text-[12px]">Model</span>
+                      <h2 className="text-[14px]">{data.model}</h2>
+                      <div className="py-3">
+                        <div className="w-full bg-[#DADADA] h-[0.6px]"></div>
                       </div>
-                      <div className="sm:w-1/2 h-full">
-                        <div className="bg-green rounded-lg text-white p-3 flex flex-col justify-between">
-                          <div>
-                            <div className="flex justify-between pb-4">
-                              <h4> Net Earnings</h4>
-                              <span className="font-semibold flex items-center ">
-                                N<span className="pr-1">{data.net_earnings}</span>
-                                <Icon
-                                  icon={open ? "fe:arrow-up" : "fe:arrow-down"}
-                                  width="1em"
-                                  height="1em"
-                                  className=""
-                                  style={{ color: "white" }}
-                                />
-                              </span>
-                            </div>
-                            <div></div>
-                          </div>
 
-                          <div
-                            className="p-3 rounded-xl flex items-center justify-center mt-4 cursor-pointer shadow border-[0.2px]"
-                            style={{ backgroundColor: "rgba(255, 255, 255,0.2)" }}
-                            onClick={() => setEarnDetails(true)}
-                          >
-                            {/* <Icon icon="emojione-monotone:up-arrow" width="1.2em" height="1.2em"  style={{color: '#119001'}} /> */}
-                            <span className="text-white text-center pl-2">See Details</span>
-                          </div>
+                      <span className="text-[#7A7A7A] text-[12px]">Year</span>
+                      <h2 className="text-[14px]">{data.year}</h2>
+                      <div className="py-3">
+                        <div className="w-full bg-[#DADADA] h-[0.6px]"></div>
+                      </div>
 
-                          <div
-                            className="bg-white p-3 rounded-xl flex items-center justify-center mt-3 cursor-pointer shadow"
-                            onClick={() => setPwithdrawOpen(true)}
-                          >
-                            <Icon
-                              icon="emojione-monotone:up-arrow"
-                              width="1.2em"
-                              height="1.2em"
-                              style={{ color: "#119001" }}
-                            />
-                            <span className="text-green text-center pl-2">Withdraw</span>
+                      <span className="text-[#7A7A7A] text-[12px]">License Plate</span>
+                      <h2 className="text-[14px]">{data.plate_no}</h2>
+                      <div className="py-3">
+                        <div className="w-full bg-[#DADADA] h-[0.6px]"></div>
+                      </div>
+
+                      <span className="text-[#7A7A7A] text-[12px]">Color</span>
+                      <h2 className="text-[14px]">{data.color}</h2>
+                    </div>
+                    <div className="bg-[#F9F9F9] p-3 border border-[#E2E2E2] rounded-md mt-2 flex">
+                      <div className="flex flex-col mr-10">
+                        <span className="text-[#7A7A7A] text-[12px]">Vehicle Id</span>
+                        <span>{data.vehicle_code}</span>
+                      </div>
+                      <div>
+                        <div className="bg-[#D8D8D8] h-16 w-[0.5px]"></div>
+                      </div>
+                      <div className="am:ml-10 ml-2 flex">
+                        <div className="sm:h-16 sm:w-16 h-10 w-10 rounded-full bg-black flex"></div>
+                        {Boolean(data.driver_details) && (
+                          <div className="pl-2">
+                            <h2 className="sm:text-xl ">{`${data.driver_details.first_name} ${data.driver_details.last_name}`}</h2>
+                            <span className="text-[#4F4F4F] text-[12px]">
+                              {data.no_of_deliveries} <span className="pl-1">Deliveries</span>
+                            </span>
                           </div>
-                        </div>
-                        <div className="border border-[#E2E2E2] rounded-md my-3 p-4">
-                          <h4 className="font-semibold">Documents</h4>
-                          <div>
-                            <div className="flex justify-between mt-3">
-                              <h5 className="text-[15px] font-normal">Car License</h5>
-                              <h5 className="capitalize text-[13px] text-green font-medium">
-                                {data.verification_status ? "Approved" : "pending"}
-                              </h5>
-                            </div>
-                            <div className="flex justify-between mt-3">
-                              <h5 className="text-[15px] font-normal">Vehicle Registration</h5>
-                              <h5 className="capitalize text-[13px] text-green font-medium">
-                                {data.verification_status ? "Approved" : "pending"}
-                              </h5>
-                            </div>
-                            <div className="flex justify-between mt-3">
-                              <h5 className="text-[15px] font-normal">VIN document</h5>
-                              <h5 className="capitalize text-[13px] text-green font-medium">
-                                {data.verification_status ? "Approved" : "pending"}
-                              </h5>
-                            </div>
-                            {/* <div className='cursor-pointer pt-4' onClick={() =>setUploadDoc(true)}>
-                        <h5 className='text-green'>upload documents</h5>
-                    </div> */}
-                          </div>
-                        </div>
+                        )}
                       </div>
                     </div>
-
-                    <div>
-                      <div className="flex justify-between pb-2">
-                        <h4>Recent Rides</h4>
-                        <span className="text-green">see all</span>
+                  </div>
+                  <div className="sm:w-1/2 h-full">
+                    <div className="bg-green rounded-lg text-white p-3 flex flex-col justify-between">
+                      <div>
+                        <div className="flex justify-between pb-4">
+                          <h4> Net Earnings</h4>
+                          <span className="font-semibold flex items-center ">
+                            N<span className="pr-1">{data.net_earnings}</span>
+                            <Icon
+                              icon={open ? "fe:arrow-up" : "fe:arrow-down"}
+                              width="1em"
+                              height="1em"
+                              className=""
+                              style={{ color: "white" }}
+                            />
+                          </span>
+                        </div>
+                        <div></div>
                       </div>
-                      {data.rides ? (
-                        data.rides.slice(0, 8).map((tripData: RideType, index) => (
-                          <div key={index.toString()}>
-                            <div
-                              className="flex justify-between mt-6 cursor-pointer"
-                              onClick={() => {
-                                setTripDetails(tripData);
-                                setId(index);
-                              }}
-                            >
-                              <div>
-                                <h1>{tripData.ride_code}</h1>
-                                <h4 className="text-[12px]">
-                                  Recipient:{" "}
-                                  {`${tripData.customer_details.first_name} ${tripData.customer_details.last_name}`}
-                                </h4>
-                                <div className={tripData.is_finished ? "flex" : "flex pt-2"}>
-                                  <div className="">
-                                    <div className={tripData.is_finished ? "pt-2" : "bg-[#F7F7F7] rounded-md p-2"}>
-                                      <img
-                                        src={tripData.is_finished ? completelogo : pendlogo}
-                                        className={tripData.is_finished ? "h-24" : "h-4"}
-                                      />
-                                    </div>
-                                  </div>
-                                  {/* <Icon icon="weui:location-filled" width="1.2em" height="1.2em"  style={{color: #119001}} /> */}
-                                  {tripData.is_cancelled || tripData.is_finished ? (
-                                    <div className="pl-5">
-                                      <div className="">
-                                        <span className="text-[#808080] text-[9.18px]">Pickup Location</span>
-                                        <h3 className="sm:text-[#11.69px] text-[10.69px]">
-                                          {tripData.pickup_location}
-                                        </h3>
-                                      </div>
-                                      <div className="">
-                                        <span className="text-[#808080] text-[9.18px]">Delivery Location</span>
-                                        <h3 className="sm:text-[#11.69px] text-[10.69px]">
-                                          {tripData.dropoff_location}
-                                        </h3>
-                                      </div>
-                                    </div>
-                                  ) : (
-                                    <div className="pl-5 w-full">
-                                      <h4 className="text-[12px] flex items-center">
-                                        <span className="flex items-center">
-                                          <Icon
-                                            icon="weui:location-filled"
-                                            width="1.2em"
-                                            height="1.2em"
-                                            style={{ color: "#119001" }}
-                                          />
-                                        </span>
-                                        <span>Pickup Location</span>
-                                      </h4>
-                                      <span>
-                                        <h3 className="sm:text-[#11.69px] text-[10.69px]">
-                                          {tripData.pickup_location}
-                                        </h3>
-                                      </span>
-                                      <span className="text-[10px]" style={{}}>
-                                        <span className="text-[#17A008]">{tripData.mins_away} mins</span> to delivery
-                                        location
-                                      </span>
-                                    </div>
-                                  )}
+
+                      <div
+                        className="p-3 rounded-xl flex items-center justify-center mt-4 cursor-pointer shadow border-[0.2px]"
+                        style={{ backgroundColor: "rgba(255, 255, 255,0.2)" }}
+                        onClick={() => setEarnDetails(true)}
+                      >
+                        {/* <Icon icon="emojione-monotone:up-arrow" width="1.2em" height="1.2em"  style={{color: '#119001'}} /> */}
+                        <span className="text-white text-center pl-2">See Details</span>
+                      </div>
+
+                      <div
+                        className="bg-white p-3 rounded-xl flex items-center justify-center mt-3 cursor-pointer shadow"
+                        onClick={() => setPwithdrawOpen(true)}
+                      >
+                        <Icon
+                          icon="emojione-monotone:up-arrow"
+                          width="1.2em"
+                          height="1.2em"
+                          style={{ color: "#119001" }}
+                        />
+                        <span className="text-green text-center pl-2">Withdraw</span>
+                      </div>
+                    </div>
+                    <div className="border border-[#E2E2E2] rounded-md my-3 p-4">
+                      <h4 className="font-semibold">Documents</h4>
+                      <div>
+                        <div className="flex justify-between mt-3">
+                          <h5 className="text-[15px] font-normal">Car License</h5>
+                          <h5 className="capitalize text-[13px] text-green font-medium">
+                            {data.verification_status ? "Approved" : "pending"}
+                          </h5>
+                        </div>
+                        <div className="flex justify-between mt-3">
+                          <h5 className="text-[15px] font-normal">Vehicle Registration</h5>
+                          <h5 className="capitalize text-[13px] text-green font-medium">
+                            {data.verification_status ? "Approved" : "pending"}
+                          </h5>
+                        </div>
+                        <div className="flex justify-between mt-3">
+                          <h5 className="text-[15px] font-normal">VIN document</h5>
+                          <h5 className="capitalize text-[13px] text-green font-medium">
+                            {data.verification_status ? "Approved" : "pending"}
+                          </h5>
+                        </div>
+                        {/* <div className='cursor-pointer pt-4' onClick={() =>setUploadDoc(true)}>
+                        <h5 className='text-green'>upload documents</h5>
+                    </div> */}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <div className="flex justify-between pb-2">
+                    <h4>Recent Rides</h4>
+                    <span className="text-green">see all</span>
+                  </div>
+                  {data.rides.length > 0 ? (
+                    data.rides.slice(0, 8).map((tripData: RideType, index) => (
+                      <div key={index.toString()}>
+                        <div
+                          className="flex justify-between mt-6 cursor-pointer"
+                          onClick={() => {
+                            setTripDetails(tripData);
+                            setId(index);
+                          }}
+                        >
+                          <div>
+                            <h1>{tripData.ride_code}</h1>
+                            <h4 className="text-[12px]">
+                              Recipient:{" "}
+                              {`${tripData.customer_details.first_name} ${tripData.customer_details.last_name}`}
+                            </h4>
+                            <div className={tripData.is_finished ? "flex" : "flex pt-2"}>
+                              <div className="">
+                                <div className={tripData.is_finished ? "pt-2" : "bg-[#F7F7F7] rounded-md p-2"}>
+                                  <img
+                                    src={tripData.is_finished ? completelogo : pendlogo}
+                                    className={tripData.is_finished ? "h-24" : "h-4"}
+                                  />
                                 </div>
                               </div>
-                              {tripData.is_finished ? (
-                                <div className="w-3/12 flex justify-end items-start">
-                                  <span className="bg-[#27794D] text-white p-1 text-[10px]">Completed</span>
+                              {/* <Icon icon="weui:location-filled" width="1.2em" height="1.2em"  style={{color: #119001}} /> */}
+                              {tripData.is_cancelled || tripData.is_finished ? (
+                                <div className="pl-5">
+                                  <div className="">
+                                    <span className="text-[#808080] text-[9.18px]">Pickup Location</span>
+                                    <h3 className="sm:text-[#11.69px] text-[10.69px]">{tripData.pickup_location}</h3>
+                                  </div>
+                                  <div className="">
+                                    <span className="text-[#808080] text-[9.18px]">Delivery Location</span>
+                                    <h3 className="sm:text-[#11.69px] text-[10.69px]">{tripData.dropoff_location}</h3>
+                                  </div>
                                 </div>
                               ) : (
-                                <div className="w-3/12 flex justify-end items-start">
-                                  <span className="bg-[#FFF4C7] text-[#7E6604] p-1 text-[10px]">In progress</span>
+                                <div className="pl-5 w-full">
+                                  <h4 className="text-[12px] flex items-center">
+                                    <span className="flex items-center">
+                                      <Icon
+                                        icon="weui:location-filled"
+                                        width="1.2em"
+                                        height="1.2em"
+                                        style={{ color: "#119001" }}
+                                      />
+                                    </span>
+                                    <span>Pickup Location</span>
+                                  </h4>
+                                  <span>
+                                    <h3 className="sm:text-[#11.69px] text-[10.69px]">{tripData.pickup_location}</h3>
+                                  </span>
+                                  <span className="text-[10px]" style={{}}>
+                                    <span className="text-[#17A008]">{tripData.mins_away} mins</span> to delivery
+                                    location
+                                  </span>
                                 </div>
                               )}
                             </div>
-                            {tripDetails.id && (
-                              <div className="fixed inset-0 z-50 w-full h-full bg-transparent flex justify-center items-center drop-shadow-md">
-                                <div className="bg-white rounded-xl drop-shadow-md p-3 lg:p-5 pb-10 lg:w-3/12">
-                                  <div className="flex justify-between items-center pb-4">
-                                    <h2 className="text-[22px] font-bold">Ride Details</h2>
-                                    <div
-                                      className="cursor-pointer bg-white rounded-full p-1 shadow-md flex items-center"
-                                      onClick={() => setTripDetails({})}
-                                    >
-                                      <Icon icon="iconoir:cancel" width="1.2em" height="1.2em" />
-                                    </div>
-                                  </div>
-                                  <RideDetails tripData={tripData} key={index} id={id} {...data} />
+                          </div>
+                          {tripData.is_finished ? (
+                            <div className="w-3/12 flex justify-end items-start">
+                              <span className="bg-[#27794D] text-white p-1 text-[10px]">Completed</span>
+                            </div>
+                          ) : (
+                            <div className="w-3/12 flex justify-end items-start">
+                              <span className="bg-[#FFF4C7] text-[#7E6604] p-1 text-[10px]">In progress</span>
+                            </div>
+                          )}
+                        </div>
+                        {tripDetails.id && (
+                          <div className="fixed inset-0 z-50 w-full h-full bg-transparent flex justify-center items-center drop-shadow-md">
+                            <div className="bg-white rounded-xl drop-shadow-md p-3 lg:p-5 pb-10 lg:w-3/12">
+                              <div className="flex justify-between items-center pb-4">
+                                <h2 className="text-[22px] font-bold">Ride Details</h2>
+                                <div
+                                  className="cursor-pointer bg-white rounded-full p-1 shadow-md flex items-center"
+                                  onClick={() => setTripDetails({})}
+                                >
+                                  <Icon icon="iconoir:cancel" width="1.2em" height="1.2em" />
                                 </div>
                               </div>
-                            )}
+                              <RideDetails tripData={tripData} key={index} id={id} {...data} />
+                            </div>
                           </div>
-                        ))
-                      ) : (
-                        <div className="flex justify-center"> No History</div>
-                      )}
-                    </div>
-                  </div>
-                )}
+                        )}
+                      </div>
+                    ))
+                  ) : (
+                    <div className="flex justify-center"> No History</div>
+                  )}
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
