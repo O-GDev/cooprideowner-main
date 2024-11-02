@@ -35,7 +35,7 @@ const createAxiosInstance = (axios: any, config: any) => {
 const apiClient = createAxiosInstance(axios, { baseURL: "coopride-api-5da2e62dd5c2.herokuapp.com/api/" });
 
 export const mediaClient = createAxiosInstance(axios, {
-  baseURL: "https://backend-yyya.onrender.com/api/user_mgt/upload_media/",
+  baseURL: "https://coopride-api-5da2e62dd5c2.herokuapp.com/api/user_mgt/upload_media/",
   "Content-Type": "multipart/form-data",
 });
 
