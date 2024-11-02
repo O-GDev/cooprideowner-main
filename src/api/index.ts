@@ -32,7 +32,7 @@ const createAxiosInstance = (axios: any, config: any) => {
   return instance;
 };
 
-const apiClient = createAxiosInstance(axios, { baseURL: "coopride-api-5da2e62dd5c2.herokuapp.com/api/" });
+const apiClient = createAxiosInstance(axios, { baseURL: "https://coopride-api-5da2e62dd5c2.herokuapp.com/api/" });
 
 export const mediaClient = createAxiosInstance(axios, {
   baseURL: "https://coopride-api-5da2e62dd5c2.herokuapp.com/api/user_mgt/upload_media/",
