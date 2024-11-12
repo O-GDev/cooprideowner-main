@@ -10,7 +10,7 @@ import Signup from "./screens/signup"
 import TransactionHistory from "./screens/transactionHistory"
 import Vehicles from "./screens/vehicles"
 import VerifyEmail from "./screens/verifyemail"
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import {HashRouter as BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
   const { user } = useAppState();
