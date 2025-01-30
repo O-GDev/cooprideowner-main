@@ -13,7 +13,7 @@ const createAxiosInstance = (axios: any, config: any) => {
       return config;
     },
     (error: any) => {
-      // return Promise.reject(error);
+      return Promise.reject(error);
     }
   );
 
