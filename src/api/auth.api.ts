@@ -1,10 +1,11 @@
 import { showToast } from "@/utils/toast";
 import apiClient from ".";
+import apiClients from ".";
 import { getErrorMessage } from "@/utils/errorHandler";
 
 export const signUp = async (payload: {}) => {
   try {
-    const res = await apiClient.post("user_mgt/signup/", payload);
+    const res = await apiClients.post("user_mgt/signup/", payload);
     return res;
   } catch (error: any) {
     showToast(getErrorMessage(error));
@@ -14,7 +15,7 @@ export const signUp = async (payload: {}) => {
 
 export const login = async (payload: { email: string; password: string }) => {
   try {
-    const res = await apiClient.post("user_mgt/login/", {...payload, user_type: 'merchant'});
+    const res = await apiClients.post("user_mgt/login/", {...payload, user_type: 'merchant'});
     return res;
   } catch (error: any) {
     showToast(getErrorMessage(error));
@@ -33,7 +34,7 @@ export const logoutApi = async () => {
 
 export const verifyEmail = async (payload: { email: string; otp: string }) => {
   try {
-    const res = await apiClient.post("user_mgt/verify_account/", payload);
+    const res = await apiClients.post("user_mgt/verify_account/", payload);
     return res.data;
   } catch (error) {
     throw error;
