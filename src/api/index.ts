@@ -7,13 +7,13 @@ const createAxiosInstance = (axios: any, config: any) => {
   instance.interceptors.request.use(
     async (config: any) => {
       const token = await getCachedData("token");
-      // if (token) {
-      //   config.headers["Authorization"] = "Bearer " + token;
-      // }
+      if (token) {
+        config.headers["Authorization"] = "Bearer " + token;
+      }
       return config;
     },
     (error: any) => {
-      return Promise.reject(error);
+      // return Promise.reject(error);
     }
   );
 
