@@ -32,14 +32,14 @@ const createAxiosInstance = (axios: any, config: any) => {
   return instance;
 };
 
-const apiClient = createAxiosInstance(axios, { baseURL: "https://backend-goof.onrender.com/api/" });
+const apiClients = createAxiosInstance(axios, { baseURL: "https://backend-goof.onrender.com/api/" });
 
 export const mediaClient = createAxiosInstance(axios, {
   baseURL: "https://backend-goof.onrender.com/api/user_mgt/upload_media/",
   "Content-Type": "multipart/form-data",
 });
 
-export default apiClient;
+export default apiClients;
 
 const handleError = (status: number, data: any) => {
   switch (status) {
