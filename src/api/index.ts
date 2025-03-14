@@ -32,10 +32,10 @@ const createAxiosInstance = (axios: any, config: any) => {
   return instance;
 };
 
-const apiClient = createAxiosInstance(axios, { baseURL: "https://backend-goof.onrender.com/api/" });
+const apiClient = createAxiosInstance(axios, { baseURL: "https://coopride-api.onrender.com/api/" });
 
 export const mediaClient = createAxiosInstance(axios, {
-  baseURL: "https://backend-goof.onrender.com/api/user_mgt/upload_media/",
+  baseURL: "https://coopride-api.onrender.com/api/user_mgt/upload_media/",
   "Content-Type": "multipart/form-data",
 });
 
